@@ -2,7 +2,6 @@ import { createSignal, Show, onMount } from "solid-js"
 
 import EntryForm from "./components/EntryForm"
 import EntryTable from "./components/EntryTable"
-import TemperatureChart from "./components/TemperatureChart"
 import FertilityDashboard from "./components/FertilityDashboard"
 
 import { entriesStore } from "./store/entriesStore"

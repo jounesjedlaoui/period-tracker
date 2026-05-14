@@ -1,5 +1,4 @@
 export type TempEntry = {
-  id: string
   type: "temperature"
   timestamp: string
   temperature: number
@@ -8,7 +7,6 @@ export type TempEntry = {
 }
 
 export type CycleEvent = {
-  id: string
   type: "cycle"
   timestamp: string
   event:
@@ -20,4 +18,4 @@ export type CycleEvent = {
   note?: string
 }
 
-type Entry = TempEntry | CycleEvent
+export type Entry = TempEntry | CycleEvent

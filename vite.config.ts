@@ -3,5 +3,5 @@ import solid from "vite-plugin-solid"
 
 export default defineConfig({
   plugins: [solid()],
-  base: "/YOUR_REPO_NAME/",
+  base: "/period-tracker",
 })

@@ -4,8 +4,7 @@ import {
   Show,
 } from "solid-js"
 
-import type { Entry } from "../store/entriesStore"
-
+import type { CycleEvent, Entry } from "../types"
 type Props = {
   onSubmit: (entry: Entry) => void
   initialData?: any

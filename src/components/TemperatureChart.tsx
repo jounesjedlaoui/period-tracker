@@ -104,7 +104,7 @@ const fertilityPlugin = {
 Chart.register(fertilityPlugin)
 
 export default function TemperatureChart() {
-  const { enrichedTemperatures, cycleStarts, fertility } =
+  const { enrichedTemperatures, cycleStarts } =
     entriesStore
 
   const data = () => ({
