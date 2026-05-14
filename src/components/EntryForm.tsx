@@ -188,20 +188,42 @@ export default function EntryForm(props: Props) {
           <div class="form-group">
             <label>Temperature (°C)</label>
 
-            <input
-              type="number"
-              step="0.01"
-              value={temperature()}
-              onInput={e =>
-                setTemperature(
-                  e.currentTarget.value,
-                )
-              }
-              onWheel={handleWheel}
-            />
+            <div class="temp-stepper">
+              <button
+                type="button"
+                class="stepper-btn"
+                onClick={() => {
+                  const v = parseFloat(temperature() || "0")
+                  setTemperature((v - 0.05).toFixed(2))
+                }}
+              >
+                −
+              </button>
+
+              <input
+                type="number"
+                step="0.01"
+                inputmode="decimal"
+                value={temperature()}
+                onInput={e =>
+                  setTemperature(e.currentTarget.value)
+                }
+              />
+
+              <button
+                type="button"
+                class="stepper-btn"
+                onClick={() => {
+                  const v = parseFloat(temperature() || "0")
+                  setTemperature((v + 0.05).toFixed(2))
+                }}
+              >
+                +
+              </button>
+            </div>
 
             <small class="helper-text">
-              Scroll to adjust ±0.05°C
+              Tap + / − or use keyboard input
             </small>
           </div>
 
@@ -224,9 +246,7 @@ export default function EntryForm(props: Props) {
               rows={3}
               value={tempNote()}
               onInput={e =>
-                setTempNote(
-                  e.currentTarget.value,
-                )
+                setTempNote(e.currentTarget.value)
               }
             />
           </div>

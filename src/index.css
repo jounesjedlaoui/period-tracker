@@ -429,6 +429,37 @@ textarea:focus {
   transform: scale(0.98);
 }
 
+.temp-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.temp-stepper input {
+  text-align: center;
+  flex: 1;
+}
+
+.stepper-btn {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 10px;
+  border: 1px solid var(--border);
+
+  background: var(--card);
+  color: var(--text);
+
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.stepper-btn:active {
+  transform: scale(0.95);
+}
+
 .zoom-reset {
   margin-top: 0.5rem;
   padding: 0.4rem 0.75rem;
