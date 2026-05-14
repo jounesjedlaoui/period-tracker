@@ -13,6 +13,7 @@ import {
 } from "chart.js"
 
 import "chartjs-adapter-date-fns"
+import zoomPlugin from "chartjs-plugin-zoom"
 import { Line } from "solid-chartjs"
 import { entriesStore } from "../store/entriesStore.tsx"
 
@@ -25,6 +26,7 @@ Chart.register(
   Tooltip,
   Legend,
   CategoryScale,
+  zoomPlugin,
 )
 
 /**
@@ -47,9 +49,7 @@ const fertilityPlugin = {
 
     ctx.save()
 
-    // =========================
     // Fertile window shading
-    // =========================
     if (fert.fertileWindow) {
       const start = xScale.getPixelForValue(
         new Date(fert.fertileWindow.start).toISOString(),
@@ -63,9 +63,7 @@ const fertilityPlugin = {
       ctx.fillRect(start, top, end - start, bottom - top)
     }
 
-    // =========================
     // Ovulation marker
-    // =========================
     if (fert.ovulationTimestamp) {
       const x = xScale.getPixelForValue(
         fert.ovulationTimestamp,
@@ -80,9 +78,7 @@ const fertilityPlugin = {
       ctx.stroke()
     }
 
-    // =========================
     // Next period marker
-    // =========================
     if (fert.nextPeriod) {
       const x = xScale.getPixelForValue(fert.nextPeriod)
 
@@ -107,11 +103,10 @@ export default function TemperatureChart() {
   const { enrichedTemperatures, cycleStarts } =
     entriesStore
 
+  let chartRef: any
+
   const data = () => ({
     datasets: [
-      // =========================
-      // Temperature series
-      // =========================
       {
         label: "Temperature",
         data: enrichedTemperatures().map(e => ({
@@ -141,9 +136,6 @@ export default function TemperatureChart() {
         },
       },
 
-      // =========================
-      // Cycle start markers
-      // =========================
       {
         label: "Cycle Start",
         data: cycleStarts().map(t => ({
@@ -190,6 +182,25 @@ export default function TemperatureChart() {
           },
         },
       },
+
+      // =========================
+      // ZOOM + PAN
+      // =========================
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "x",
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "x",
+        },
+      },
     },
 
     scales: {
@@ -209,14 +220,25 @@ export default function TemperatureChart() {
       <div class="chart-header">
         <h2>Temperature Tracking</h2>
         <p>
-          Fertility-aware cycle visualization with
-          phase detection
+          Fertility-aware cycle visualization with phase detection
         </p>
       </div>
 
       <div class="chart-container">
-        <Line data={data()} options={options} />
+        <Line
+          data={data()}
+          options={options}
+          ref={(el: any) => (chartRef = el)}
+        />
       </div>
+
+      {/* optional UX control */}
+      <button
+        class="zoom-reset"
+        onClick={() => chartRef?.resetZoom?.()}
+      >
+        Reset Zoom
+      </button>
     </div>
   )
 }

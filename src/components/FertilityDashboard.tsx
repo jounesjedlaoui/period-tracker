@@ -18,7 +18,7 @@ export default function FertilityDashboard() {
       <div class="dashboard-header">
         <h2>Dashboard</h2>
         <p>
-          Cycle intelligence, temperature trends &
+          Temperature trends &
           predictions
         </p>
       </div>

@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "chartjs-plugin-zoom": "^2.2.0",
     "solid-js": "^1.9.12"
   },
   "devDependencies": {
